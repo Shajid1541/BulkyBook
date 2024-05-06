@@ -1,3 +1,6 @@
+using BulkyBookWeb.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace BulkyBookWeb
 {
     public class Program
@@ -9,6 +12,14 @@ namespace BulkyBookWeb
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            //add database connetction
+            builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
+                    builder.Configuration.GetConnectionString("DefaultConnection")
+                ));
+
+
+
+            builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

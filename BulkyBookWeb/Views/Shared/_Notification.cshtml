@@ -1,10 +1,25 @@
 ﻿@if(TempData["success"] != null)
 {
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @* <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script type="text/javascript">
         toastr.success('@TempData["success"]');
+    </script> *@
+    <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body">
+            @TempData["success"]
+        </div>
+    </div>
+
+    <script>
+        // Get the toast element
+        const toast = document.querySelector('.toast');
+
+        // Set a timeout to hide the toast after 500 milliseconds
+        setTimeout(() => {
+            toast.classList.remove('show'); // Hide the toast
+        }, 1000);
     </script>
     
 }

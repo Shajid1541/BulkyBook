@@ -23,7 +23,37 @@
 </div>
 <br />
 
-<table class="table table-bordered table-striped" style="width:100%">
+
+<div class="row m-0 my-1 bg-dark p-3 rounded text-white">
+    <div class="col-4">Category Name</div>
+    <div class="col-4">Display Order</div>
+    <div class="col-4 text-md-center"></div>
+
+</div>
+
+@foreach (var obj in Model.Categories)
+{
+    if (Model.search == null || obj.Name.Contains(Model.search))
+    {
+        <div class="row m-0 my-1 border border-black p-3 rounded">
+            <div class="col-4">@obj.Name</div>
+            <div class="col-4">@obj.DisplayOrder</div>
+            <div class="col-4 d-flex justify-content-end">
+                <div class="btn-group " role="group">
+                    <a class="btn " asp-controller="Category" asp-action="Edit" asp-route-id="@obj.Id"><i class="bi bi-pencil-square"></i>Edit</a>
+                    <a class="btn " asp-controller="Category" asp-action="Delete" asp-route-id="@obj.Id">
+                        <i class="bi bi-trash">
+                        </i>Delete
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    }
+
+}
+
+@* <table class="table table-bordered table-striped" style="width:100%">
     <thead>
         <tr>
             <th class="mx-2">
@@ -66,4 +96,4 @@
     }
         
     </tbody>
-</table>
+</table> *@

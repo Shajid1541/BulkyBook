@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BulkyBookWeb.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240506132835_AddCategoryTodatabase")]
-    partial class AddCategoryTodatabase
+    [Migration("20240508113953_initDb")]
+    partial class initDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,31 @@ namespace BulkyBookWeb.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("BulkyBookWeb.Models.book", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("cid")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("cid");
+
+                    b.ToTable("books");
+                });
 
             modelBuilder.Entity("BulkyBookWeb.Models.Category", b =>
                 {
@@ -45,6 +70,22 @@ namespace BulkyBookWeb.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("BulkyBookWeb.Models.book", b =>
+                {
+                    b.HasOne("BulkyBookWeb.Models.Category", "Category")
+                        .WithMany("books")
+                        .HasForeignKey("cid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("BulkyBookWeb.Models.Category", b =>
+                {
+                    b.Navigation("books");
                 });
 #pragma warning restore 612, 618
         }

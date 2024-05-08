@@ -14,5 +14,10 @@ namespace BulkyBookWeb.Models
         [Range(0, 200,ErrorMessage = "Display Order should 1 to 200 only!")]
         public int DisplayOrder { get; set; }
         public DateTime CreatedDateTime { get; set; } = DateTime.Now;
+
+        public virtual ICollection<book> books { get; set; }
+        public Category() { 
+            books = new List<book>();
+        }
     }
 }

@@ -12,10 +12,13 @@ namespace BulkyBookWeb.Controllers
         {
             _db = db;
         }
-        public IActionResult Index()
+        public IActionResult Index(string? search)
         {
            IEnumerable<Category> objCategoryList = _db.Categories;
-            return View(objCategoryList);
+            view obj = new view();
+            obj.Categories = objCategoryList;
+            obj.search = search;
+            return View(obj);
         }
 
         public IActionResult Create()

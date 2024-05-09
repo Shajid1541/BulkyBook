@@ -110,5 +110,13 @@ namespace BulkyBookWeb.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult buy(int id) { 
+            var item = _db.Categories.Find(id);
+            item.DisplayOrder++;
+            _db.Categories.Update(item);
+            _db.SaveChanges();
+            return RedirectToAction("Index","Book");
+        }
+
     }
 }

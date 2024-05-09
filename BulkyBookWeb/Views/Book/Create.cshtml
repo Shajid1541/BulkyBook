@@ -1,4 +1,4 @@
-﻿@model BulkyBookWeb.Models.bookDTO
+﻿@model BulkyBookWeb.Models.book
 
 @{
     ViewData["Title"] = "Create";
@@ -8,12 +8,10 @@
 
 <h4>book</h4>
 <hr />
-<div asp-validation-summary="All">
-
-</div>
+<div asp-validation-summary="All"></div>
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -27,24 +25,16 @@
             </div>
             <div class="form-group">
                 <label asp-for="cid" class="control-label"></label>
-                <select asp-for="cid" class="form-control">
-                    @foreach (Category collector in ViewBag.Categories)
-                    {
-                        <option value=@collector.Id>@collector.Name</option>
-                    }
-                </select>
+                <select asp-for="cid" class="form-control" asp-items="ViewBag.CategoryId"></select>
             </div>
-            <br />
             <div class="form-group">
-                <div class="btn-group">
-                    <input type="submit" value="Create" class="btn btn-outline-success" />
-                    <a asp-action="Index" class="btn btn-outline-warning">Back to list</a>
-                </div>
-               
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
 

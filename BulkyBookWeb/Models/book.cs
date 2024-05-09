@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
@@ -13,9 +14,8 @@ namespace BulkyBookWeb.Models
         public double Price { get; set; }
 
         [ForeignKey("Category")]
-        [AllowNull]
         public int cid { get; set; }
-
+        [ValidateNever]
         public virtual Category Category { get; set; }
 
     }

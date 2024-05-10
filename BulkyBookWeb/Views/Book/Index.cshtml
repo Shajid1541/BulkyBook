@@ -41,12 +41,12 @@
             <div class="card border-dark mb-3" style="max-width: 20rem;">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <span>@Html.DisplayFor(modelItem => item.Price)$</span>
-                    @* <div>
+                    <div>
                         <a class="btn btn-primary" asp-controller="Category" asp-action="buy" asp-route-id="@item.Category.Id" style="background-color: 
                            lightgray; border-color: lightgray;"
                            onmouseover="this.style.backgroundColor='darkgrey'; this.style.borderColor='darkgrey';"
                            onmouseout="this.style.backgroundColor='lightgray'; this.style.borderColor='lightgray';">Buy Now</a>
-                    </div> *@
+                    </div>
                 </div>
                 <div class="card-body">
                     <h4 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h4>

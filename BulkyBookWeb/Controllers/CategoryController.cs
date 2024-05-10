@@ -143,14 +143,21 @@ namespace BulkyBookWeb.Controllers
         }
         #endregion
 
-        /*public IActionResult buy(int id)
+        #region buybook
+        public async Task<IActionResult> buy(int id)
         {
-            var item = _db.Categories.Find(id);
-            item.DisplayOrder++;
-            _db.Categories.Update(item);
-            _db.SaveChanges();
-            return RedirectToAction("Index", "Book");
-        }*/
+            try
+            {
+                var data = await categoryServices.UpdateBuyOne(id);
+                return RedirectToAction("Index", "Book");
+            }
+            catch(Exception ex)
+            {
+                return NotFound();
+            }
+            
+        }
+        #endregion
 
     }
 }

@@ -43,6 +43,13 @@ namespace BulkyBookWeb.Services
             return data;
         }
 
+        public async Task<Category> UpdateBuyOne(int categoryId)
+        {
+            var data = await categoryRepo.Read(categoryId);
+            data.DisplayOrder += 1;
+            return await categoryRepo.Update(data);
+        }
+
         public async Task<Category> UpdateCategoryAsync(Category category)
         {
             var data = await categoryRepo.Update(category);

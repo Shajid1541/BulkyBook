@@ -11,5 +11,6 @@ namespace BulkyBookWeb.Interfaces
         Task<Category> UpdateCategoryAsync(Category category);
         Task<bool> DeleteCategoryAsync(int categoryId);
         Task<List<Category>> GetAllCategoriesWithoutBookAsync();
+        Task<Category> UpdateBuyOne(int categoryId);
     }
 }

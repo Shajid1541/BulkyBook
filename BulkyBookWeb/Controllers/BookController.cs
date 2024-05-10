@@ -10,8 +10,10 @@ namespace BulkyBookWeb.Controllers
 {
     public class BookController : Controller
     {
+        #region Used Services Interface
         private readonly IBookServices bookServices;
         private readonly ICategoryServices categoryServices;
+        #endregion
 
         #region ctor
         public BookController(IBookServices bookServices, ICategoryServices categoryServices)
@@ -40,6 +42,7 @@ namespace BulkyBookWeb.Controllers
         }
         #endregion
 
+        #region Create POST
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(book book)
@@ -51,6 +54,7 @@ namespace BulkyBookWeb.Controllers
                 try
                 {
                     var data = bookServices.CreatBookAsync(book);
+
                     return RedirectToAction("Index");
                 }
                 catch (Exception ex)
@@ -58,7 +62,9 @@ namespace BulkyBookWeb.Controllers
                 }
             }
             ViewBag.CategoryId = new SelectList(await categoryServices.GetAllCategoriesWithoutBookAsync(), "Id", "Name");
+
             return View(book);
         }
+        #endregion
     }
 }

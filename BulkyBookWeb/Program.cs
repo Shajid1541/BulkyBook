@@ -1,4 +1,8 @@
 using BulkyBookWeb.Data;
+using BulkyBookWeb.Interfaces;
+using BulkyBookWeb.Models;
+using BulkyBookWeb.Repos;
+using BulkyBookWeb.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace BulkyBookWeb
@@ -8,6 +12,12 @@ namespace BulkyBookWeb
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddScoped<IBulky<book, int, book>, BookRepo>();
+            builder.Services.AddScoped<IBulky<Category, int, Category>, CategoryRepo>();
+            builder.Services.AddScoped<IBookServices, BookService>();
+            builder.Services.AddScoped<ICategoryServices, CategoryService>();
+
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();

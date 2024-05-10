@@ -1,5 +1,7 @@
 ﻿using BulkyBookWeb.Data;
+using BulkyBookWeb.Interfaces;
 using BulkyBookWeb.Models;
+using BulkyBookWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -8,20 +10,23 @@ namespace BulkyBookWeb.Controllers
 {
     public class BookController : Controller
     {
-        private readonly AppDbContext _db;
-        private readonly AppDbContext _context;
-        public BookController(AppDbContext db)
+        private readonly IBookServices bookServices;
+
+        #region ctor
+        public BookController(IBookServices bookServices)
         {
-            _db = db;
-            _context = _db;
+            this.bookServices = bookServices;
         }
-        public IActionResult Index()
+        #endregion
+
+        #region IndexAsync
+        public async Task<IActionResult> Index()
         {
-            
-            IEnumerable<book> obj = _db.books
-                .Include(b=> b.Category);
-            return View(obj);
+            var data = await bookServices.GetAllBooksAsync();
+
+            return View(data);
         }
+        #endregion
 
         /*public IActionResult Create()
         {
@@ -51,19 +56,19 @@ namespace BulkyBookWeb.Controllers
             return View(obj);
         }*/
         // GET: Book/Create
-        public IActionResult Create()
+        /*public IActionResult Create()
         {
             
             ViewBag.CategoryId = new SelectList(_context.Categories, "Id", "Name");
-            var chk = ViewBag.CategoryId;
+            *//*var chk = ViewBag.CategoryId;*//*
             return View();
-        }
+        }*/
 
         // POST: Book/Create
-        [HttpPost]
+       /* [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(book book)
-        {
+        {*/
             /*if (book.cid != null)
             {
                 book.Category = _context.Categories.FirstOrDefault(x => x.Id == book.cid).;
@@ -78,7 +83,7 @@ namespace BulkyBookWeb.Controllers
                     // Log or inspect the error message here
                 }
             }*/
-            if (ModelState.IsValid)
+            /*if (ModelState.IsValid)
             {
                 
                 _context.Add(book);
@@ -87,6 +92,6 @@ namespace BulkyBookWeb.Controllers
             }
             ViewBag.CategoryId = new SelectList(_context.Categories, "Id", "Name", book.cid);
             return View(book);
-        }
+        }*/
     }
 }

@@ -14,6 +14,7 @@ namespace BulkyBookWeb.Data
             _configuration = configuration;
         }
 
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

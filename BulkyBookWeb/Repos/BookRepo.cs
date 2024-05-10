@@ -15,6 +15,8 @@ namespace BulkyBookWeb.Repos
             this.db = db;
         }
 
+        
+
         public async Task<book> Create(book type)
         {
             db.books.Add(type);
@@ -59,6 +61,11 @@ namespace BulkyBookWeb.Repos
             {
                 return null;
             }
+        }
+
+        public async Task<List<book>> GetAllWithCategory()
+        {
+            return await db.books.Include(b => b.Category).ToListAsync();
         }
 
         

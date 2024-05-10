@@ -11,87 +11,54 @@ namespace BulkyBookWeb.Controllers
     public class BookController : Controller
     {
         private readonly IBookServices bookServices;
+        private readonly ICategoryServices categoryServices;
 
         #region ctor
-        public BookController(IBookServices bookServices)
+        public BookController(IBookServices bookServices, ICategoryServices categoryServices)
         {
             this.bookServices = bookServices;
+            this.categoryServices = categoryServices;
         }
         #endregion
 
         #region IndexAsync
         public async Task<IActionResult> Index()
         {
-            var data = await bookServices.GetAllBooksAsync();
+            var data = await bookServices.GetAllBooksAsyncWithCategory();
 
             return View(data);
         }
         #endregion
 
-        /*public IActionResult Create()
+
+        #region create GET
+        public async Task<IActionResult> Create()
         {
-            ViewBag.Categories = _db.Categories;
+            ViewBag.CategoryId = new SelectList(await categoryServices.GetAllCategoriesWithoutBookAsync(), "Id", "Name");
+          
             return View();
         }
+        #endregion
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
-        public IActionResult Create(bookDTO obj)
+        public async Task<IActionResult> Create(book book)
         {
             
+           
             if (ModelState.IsValid)
             {
-                var cat = _db.Categories.Find(obj.cid);
-                book book = new book();
-                book.Name = obj.Name;
-                book.Price = obj.Price;
-                book.Category = cat;
-                _db.books.Add(book);
-                _db.SaveChanges();
-                TempData["success"] = "Successfully Created";
-                return RedirectToAction("Index");
-            }
-            ViewBag.Categories = _db.Categories;
-            return View(obj);
-        }*/
-        // GET: Book/Create
-        /*public IActionResult Create()
-        {
-            
-            ViewBag.CategoryId = new SelectList(_context.Categories, "Id", "Name");
-            *//*var chk = ViewBag.CategoryId;*//*
-            return View();
-        }*/
-
-        // POST: Book/Create
-       /* [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(book book)
-        {*/
-            /*if (book.cid != null)
-            {
-                book.Category = _context.Categories.FirstOrDefault(x => x.Id == book.cid).;
-            }
-            var chk = ModelState;*/
-           /* foreach (var modelStateKey in ModelState.Keys)
-            {
-                var modelStateVal = ModelState[modelStateKey];
-                foreach (var error in modelStateVal.Errors)
+                try
                 {
-                    var errorMessage = error.ErrorMessage;
-                    // Log or inspect the error message here
+                    var data = bookServices.CreatBookAsync(book);
+                    return RedirectToAction("Index");
                 }
-            }*/
-            /*if (ModelState.IsValid)
-            {
-                
-                _context.Add(book);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+                catch (Exception ex)
+                {
+                }
             }
-            ViewBag.CategoryId = new SelectList(_context.Categories, "Id", "Name", book.cid);
+            ViewBag.CategoryId = new SelectList(await categoryServices.GetAllCategoriesWithoutBookAsync(), "Id", "Name");
             return View(book);
-        }*/
+        }
     }
 }

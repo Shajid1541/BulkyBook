@@ -32,6 +32,11 @@ namespace BulkyBookWeb.Services
             return data;
         }
 
+        public async Task<List<Category>> GetAllCategoriesWithoutBookAsync()
+        {
+            return await categoryRepo.GetAll();
+        }
+
         public async Task<Category> GetCategoryAsync(int categoryId)
         {
             var data = await categoryRepo.Read(categoryId);

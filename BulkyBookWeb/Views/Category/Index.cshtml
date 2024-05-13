@@ -33,7 +33,7 @@
 
 @foreach (var obj in Model.Categories)
 {
-    if (Model.search == null || obj.Name.Contains(Model.search))
+    if (Model.search == null || obj.Name.Contains(Model.search) || Model.search == "")
     {
         <div class="row m-0 my-1 border border-black p-3 rounded">
             <div class="col-4">@obj.Name</div>
@@ -97,3 +97,8 @@
         
     </tbody>
 </table> *@
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

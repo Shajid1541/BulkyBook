@@ -13,10 +13,7 @@ namespace BulkyBookWeb
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddScoped<IBulky<book, int, book>, BookRepo>();
-            builder.Services.AddScoped<IBulky<Category, int, Category>, CategoryRepo>();
-            builder.Services.AddScoped<IBookServices, BookService>();
-            builder.Services.AddScoped<ICategoryServices, CategoryService>();
+            AddScoping(builder);
 
 
             // Add services to the container.
@@ -52,6 +49,14 @@ namespace BulkyBookWeb
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
+        }
+
+        private static void AddScoping(WebApplicationBuilder builder)
+        {
+            builder.Services.AddScoped<IBulky<book, int, book>, BookRepo>();
+            builder.Services.AddScoped<IBulky<Category, int, Category>, CategoryRepo>();
+            builder.Services.AddScoped<IBookServices, BookService>();
+            builder.Services.AddScoped<ICategoryServices, CategoryService>();
         }
     }
 }

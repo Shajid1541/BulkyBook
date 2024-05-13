@@ -32,7 +32,6 @@ namespace BulkyBookWeb.Controllers
         }
         #endregion
 
-
         #region create GET
         public async Task<IActionResult> Create()
         {

@@ -47,6 +47,7 @@ namespace BulkyBookWeb.Controllers
                 var data = await categoryServices.CreateCategoryAsync(obj);
                 if(data != null)
                 {
+                    TempData["success"] = "Successfully Created";
                     return RedirectToAction("Index");
                 }
             }
@@ -149,6 +150,7 @@ namespace BulkyBookWeb.Controllers
             try
             {
                 var data = await categoryServices.UpdateBuyOne(id);
+                TempData["success"] = "Successfully Order Placed \n"+ data.DisplayOrder + " Total order placed in "+data.Name;
                 return RedirectToAction("Index", "Book");
             }
             catch(Exception ex)
